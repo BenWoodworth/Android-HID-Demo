@@ -49,6 +49,4 @@ class Settings : Fragment() {
             defaultPath.value = "/dev/hidg1"
         }
     }
-
-
 }
