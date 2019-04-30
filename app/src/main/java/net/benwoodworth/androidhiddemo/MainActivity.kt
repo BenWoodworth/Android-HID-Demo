@@ -1,19 +1,17 @@
 package net.benwoodworth.androidhiddemo
 
-import android.net.Uri
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), DeviceConfig.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_devices -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, Devices())
+                        .replace(R.id.container, Settings())
                         .commit()
                 }
                 R.id.navigation_dashboard -> {
@@ -34,11 +32,7 @@ class MainActivity : AppCompatActivity(), DeviceConfig.OnFragmentInteractionList
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, Devices())
+            .replace(R.id.container, Settings())
             .commit()
-    }
-
-    override fun onFragmentInteraction(uri: Uri) {
-        // TODO("not implemented")
     }
 }
