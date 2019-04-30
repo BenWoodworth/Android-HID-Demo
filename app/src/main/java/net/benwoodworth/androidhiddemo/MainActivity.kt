@@ -9,15 +9,15 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_devices -> {
+                R.id.navigation_gadgets -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, Settings())
                         .commit()
                 }
-                R.id.navigation_dashboard -> {
+                R.id.navigation_keyboard -> {
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_notifications -> {
+                R.id.navigation_gamepad -> {
                     return@OnNavigationItemSelectedListener true
                 }
             }

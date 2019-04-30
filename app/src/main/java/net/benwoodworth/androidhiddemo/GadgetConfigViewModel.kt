@@ -11,6 +11,8 @@ class GadgetConfigViewModel : ViewModel() {
     val connection: LiveData<HidConnection?> = PrivateMutableLiveData()
 
     val isConnected = MutableLiveData<Boolean>().apply {
+        value = false
+
         observeForever { connect ->
             connection as PrivateMutableLiveData
             val connectionValue = connection.value
@@ -31,7 +33,9 @@ class GadgetConfigViewModel : ViewModel() {
         }
     }
 
-    val isEditable = Transformations.map(isConnected) { !it }
+    val isEditable = Transformations.map(isConnected) { isConnected ->
+        !isConnected
+    }
 
     val name = MutableLiveData<String>().apply {
         value = "Gadget"

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.fragment_gadget_config.*
 import net.benwoodworth.androidhiddemo.databinding.FragmentGadgetConfigBinding
 
 class GadgetConfig : Fragment() {
@@ -25,7 +27,18 @@ class GadgetConfig : Fragment() {
 
         val binding = FragmentGadgetConfigBinding.inflate(inflater)
         binding.gadget = viewModel
+
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val devicePathType = textDevicePath.inputType
+
+        viewModel.isEditable.observe(this, Observer { editable ->
+            textDevicePath.inputType = if (editable) devicePathType else 0
+//            switchUseRoot.isEnabled = editable
+        })
+    }
 }

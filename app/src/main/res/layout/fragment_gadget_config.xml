@@ -88,7 +88,6 @@
                     android:layout_marginEnd="8dp"
                     android:ems="10"
                     android:imeOptions="actionDone"
-                    android:inputType="textUri"
                     android:text="@={gadget.path}"
                     android:hint="@{gadget.defaultPath}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +103,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:checked="@={gadget.useRoot}"
+                    android:enabled="@{gadget.isEditable}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textDevicePath" />

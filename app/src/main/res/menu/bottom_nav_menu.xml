@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_devices"
+        android:id="@+id/navigation_gadgets"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Devices" />
+        android:title="Gadgets" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_keyboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="Keyboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_gamepad"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="Game Pad" />
 
 </menu>
