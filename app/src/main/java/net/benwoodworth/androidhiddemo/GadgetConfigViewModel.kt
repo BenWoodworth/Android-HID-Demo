@@ -52,7 +52,7 @@ class GadgetConfigViewModel : ViewModel() {
     }
 
     override fun onCleared() {
-        isConnected.value = false
+//        isConnected.value = false
     }
 
     private inner class PrivateMutableLiveData<T> : LiveData<T>() {

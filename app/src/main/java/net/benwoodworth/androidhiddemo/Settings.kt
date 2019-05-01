@@ -12,11 +12,11 @@ import net.benwoodworth.androidhiddemo.hid.HidKeyboard
 
 class Settings : Fragment() {
 
-    private lateinit var appGadgets: HidGadgets
+    private lateinit var hidGadgets: HidGadgets
 
     companion object {
         fun newInstance(appGadgets: HidGadgets) = Settings().apply {
-            this.appGadgets = appGadgets
+            this.hidGadgets = appGadgets
         }
     }
 
@@ -41,7 +41,7 @@ class Settings : Fragment() {
             defaultPath.value = "/dev/hidg0"
 
             connection.observe(this@Settings, Observer { connection ->
-                appGadgets.keyboard.value = connection
+                hidGadgets.keyboard.value = connection
                     ?.let { HidKeyboard(it) }
             })
         }
@@ -51,7 +51,7 @@ class Settings : Fragment() {
             defaultPath.value = "/dev/hidg1"
 
             connection.observe(this@Settings, Observer { connection ->
-                appGadgets.gamePad.value = connection
+                hidGadgets.gamePad.value = connection
                     ?.let { HidGamePad(it) }
             })
         }

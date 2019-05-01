@@ -1,7 +1,5 @@
 package net.benwoodworth.androidhiddemo.hid
 
-import java.lang.RuntimeException
-
 @HidDslMarker
 class HidKeyboardDsl(
     val keyboard: HidKeyboard,
@@ -197,4 +195,8 @@ class HidKeyboardDsl(
     fun text(text: String) {
         text.forEach { text(it) }
     }
+
+    operator fun String.unaryPlus(): Unit = text(this)
+
+    operator fun Char.unaryPlus(): Unit = text(this)
 }

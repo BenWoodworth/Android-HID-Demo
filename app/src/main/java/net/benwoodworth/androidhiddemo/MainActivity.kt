@@ -12,10 +12,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appGadgets: HidGadgets
+    private lateinit var hidGadgets: HidGadgets
 
     private val settings: Settings by lazy {
-        Settings.newInstance(appGadgets)
+        Settings.newInstance(hidGadgets)
+    }
+
+    private val keyboard: Keyboard by lazy {
+        Keyboard.newInstance(hidGadgets)
     }
 
     private val onNavigationItemSelectedListener =
@@ -29,6 +33,10 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_keyboard -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, keyboard)
+                        .commit()
+
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_gamepad -> {
@@ -50,9 +58,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        appGadgets = ViewModelProviders.of(this).get(HidGadgets::class.java)
+        hidGadgets = ViewModelProviders.of(this).get(HidGadgets::class.java)
 
-        appGadgets.keyboard.observe(this, Observer { keyboard ->
+        hidGadgets.keyboard.observe(this, Observer { keyboard ->
             val menuItem = nav_view.menu.findItem(R.id.navigation_keyboard)
             menuItem.isEnabled = keyboard != null
 
@@ -61,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        appGadgets.gamePad.observe(this, Observer { gamePad ->
+        hidGadgets.gamePad.observe(this, Observer { gamePad ->
             val menuItem = nav_view.menu.findItem(R.id.navigation_gamepad)
             menuItem.isEnabled = gamePad != null
 
