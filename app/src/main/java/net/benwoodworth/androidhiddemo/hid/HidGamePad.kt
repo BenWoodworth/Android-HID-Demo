@@ -15,29 +15,29 @@ class HidGamePad(
         with(state) {
             connection.write(
                 bits(
-                    button08,
                     button07,
                     button06,
                     button05,
                     button04,
                     button03,
                     button02,
-                    button01
+                    button01,
+                    button00
                 ).toByte(),
                 bits(
-                    button16,
                     button15,
                     button14,
                     button13,
                     button12,
                     button11,
                     button10,
-                    button09
+                    button09,
+                    button08
                 ).toByte(),
+                joy0X.toByte(),
+                joy0Y.toByte(),
                 joy1X.toByte(),
-                joy1Y.toByte(),
-                joy2X.toByte(),
-                joy2Y.toByte()
+                joy1Y.toByte()
             )
         }
     }
@@ -56,12 +56,13 @@ class HidGamePad(
             }
         }
 
+        var joy0X: Int by joyDelegate()
+        var joy0Y: Int by joyDelegate()
+
         var joy1X: Int by joyDelegate()
         var joy1Y: Int by joyDelegate()
 
-        var joy2X: Int by joyDelegate()
-        var joy2Y: Int by joyDelegate()
-
+        var button00: Boolean = false
         var button01: Boolean = false
         var button02: Boolean = false
         var button03: Boolean = false
@@ -77,6 +78,5 @@ class HidGamePad(
         var button13: Boolean = false
         var button14: Boolean = false
         var button15: Boolean = false
-        var button16: Boolean = false
     }
 }

@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         Keyboard.newInstance(hidGadgets)
     }
 
+    private val gamePad: GamePad by lazy {
+        GamePad.newInstance(hidGadgets)
+    }
+
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_gamepad -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, gamePad)
+                        .commit()
+
                     return@OnNavigationItemSelectedListener true
                 }
             }
