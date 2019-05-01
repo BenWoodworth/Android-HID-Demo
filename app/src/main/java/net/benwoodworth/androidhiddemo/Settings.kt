@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import net.benwoodworth.androidhiddemo.hid.HidGamePad
+import net.benwoodworth.androidhiddemo.hid.HidKeyboard
 
 
 class Settings : Fragment() {
 
-    private lateinit var keyboardConfig: GadgetConfig
-    private lateinit var gamePadConfig: GadgetConfig
+    private lateinit var appGadgets: HidGadgets
 
     companion object {
-        fun newInstance() = Settings()
+        fun newInstance(appGadgets: HidGadgets) = Settings().apply {
+            this.appGadgets = appGadgets
+        }
     }
-
-    lateinit var viewModel: SettingsViewModel
-        private set
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,26 +27,33 @@ class Settings : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        keyboardConfig = childFragmentManager.findFragmentById(R.id.keyboardConfig) as GadgetConfig
-        gamePadConfig = childFragmentManager.findFragmentById(R.id.gamePadConfig) as GadgetConfig
+        val keyboardConfig = childFragmentManager
+            .findFragmentById(R.id.keyboardConfig) as GadgetConfig
 
-        keyboardConfig.viewModel.apply {
+        val gamePadConfig = childFragmentManager
+            .findFragmentById(R.id.gamePadConfig) as GadgetConfig
+
+        keyboardConfig.gadget.apply {
             name.value = "Keyboard"
             defaultPath.value = "/dev/hidg0"
+
+            connection.observe(this@Settings, Observer { connection ->
+                appGadgets.keyboard.value = connection
+                    ?.let { HidKeyboard(it) }
+            })
         }
 
-        gamePadConfig.viewModel.apply {
+        gamePadConfig.gadget.apply {
             name.value = "Game Pad"
             defaultPath.value = "/dev/hidg1"
+
+            connection.observe(this@Settings, Observer { connection ->
+                appGadgets.gamePad.value = connection
+                    ?.let { HidGamePad(it) }
+            })
         }
     }
 }

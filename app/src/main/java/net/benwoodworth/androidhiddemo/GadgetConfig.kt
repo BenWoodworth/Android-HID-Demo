@@ -17,17 +17,17 @@ class GadgetConfig : Fragment() {
         fun newInstance() = GadgetConfig()
     }
 
-    lateinit var viewModel: GadgetConfigViewModel
+    lateinit var gadget: GadgetConfigViewModel
         private set
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(GadgetConfigViewModel::class.java)
+        gadget = ViewModelProviders.of(this).get(GadgetConfigViewModel::class.java)
 
         val binding = FragmentGadgetConfigBinding.inflate(inflater)
-        binding.gadget = viewModel
+        binding.gadget = gadget
 
         return binding.root
     }
@@ -39,7 +39,7 @@ class GadgetConfig : Fragment() {
         val devicePathBackground = textDevicePath.background
 
         // TODO Use data binding
-        viewModel.isEditable.observe(this, Observer { editable ->
+        gadget.isEditable.observe(this, Observer { editable ->
             if (editable) {
                 textDevicePath.inputType = devicePathType
                 textDevicePath.background = devicePathBackground
