@@ -1,7 +1,6 @@
 package net.benwoodworth.androidhiddemo.hid
 
 import java.io.Closeable
-import java.lang.StringBuilder
 
 class HidConnection private constructor(
     private val process: Process
@@ -35,12 +34,12 @@ class HidConnection private constructor(
         }
 
         fun getProcess(device: String, root: Boolean): Process {
-            val catLoop = "while true; do cat > ${device.toShellString()}; done"
+            val cat = "cat > ${device.toShellString()}"
 
             val command = if (root) {
-                arrayOf("su", "-c", "sh -c ${catLoop.toShellString()}")
+                arrayOf("su", "-c", "sh -c ${cat.toShellString()}")
             } else {
-                arrayOf("sh", "-c", catLoop)
+                arrayOf("sh", "-c", cat)
             }
 
             return Runtime.getRuntime().exec(command)
