@@ -44,6 +44,7 @@ class GamePad : Fragment() {
         button05.hookGamePad { button05 = it }
         button06.hookGamePad { button06 = it }
         button07.hookGamePad { button07 = it }
+        button08.hookGamePad { button08 = it }
     }
 
     private fun Button.hookGamePad(setButton: HidGamePad.State.(pressed: Boolean) -> Unit) {
